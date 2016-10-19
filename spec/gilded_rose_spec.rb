@@ -4,6 +4,37 @@ describe GildedRose do
   subject(:gilded_rose) { described_class.new(items) }
   let(:items) {[]}
 
+  describe "OTHER ITEM original master tests" do
+    describe "one day update impact before or on sell_in date" do
+      before do
+        items << Item.new(name="anything else", sell_in=4, quality=10)
+        gilded_rose.update_quality
+      end
+      it "decreases sell_in by 1" do
+        expect(items[0].sell_in).to eq(3)
+      end
+      it "decreases quality by 1" do
+        expect(items[0].quality).to eq(9)
+      end
+      it "decreases quality by 1 ON sell_in date" do
+        3.times{gilded_rose.update_quality}
+        expect(items[0].quality).to eq(6)
+      end
+    end
+    describe "one day update impact AFTER sell_in date" do
+      before do
+        items << Item.new(name="anything else", sell_in=4, quality=10)
+        5.times{gilded_rose.update_quality}
+      end
+      it "decreases quality by 2 now" do
+        expect(items[0].quality).to eq(4)
+      end
+      it "decreases sell_in by 1 still" do
+        expect(items[0].sell_in).to eq(-1)
+      end
+    end
+  end
+
   # describe "CONJURED ITEMS original master tests" do
   #   describe "one day update impact before or on sell_in date" do
   #     before do
