@@ -12,9 +12,14 @@ class GildedRose
     end
   end
 
+  def update_quality_sulfuras
+
+  end
+
   def update_quality()
     @items.each do |item|
-      update_quality_brie if item.name == "Aged Brie"
+      # update_quality_brie if item.name == "Aged Brie"
+      update_quality_sulfuras if item.name == "Sulfuras, Hand of Ragnaros"
       # if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
       #   if item.quality > 0
       #     if item.name != "Sulfuras, Hand of Ragnaros"
