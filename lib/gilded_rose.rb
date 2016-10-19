@@ -4,9 +4,14 @@ class GildedRose
     @items = items
   end
 
-  def update_quality_brie
+  def update_sell_in
     @items.each do |item|
       item.sell_in -= 1
+    end
+  end
+
+  def update_quality_brie
+    @items.each do |item|
       item.quality += 1 if item.quality < 50
       item.quality += 1 if item.sell_in < 0 && item.quality < 50
     end
@@ -16,10 +21,23 @@ class GildedRose
 
   end
 
+  def update_quality_backstage
+    @items.each do |item|
+      case
+        when item.sell_in < 0 then item.quality = 0
+        when item.sell_in <= 5 then (item.quality += 3 if item.quality < 50)
+        when item.sell_in <=10 then (item.quality += 2 if item.quality < 50)
+        when item.sell_in > 10 then (item.quality += 1 if item.quality < 50)
+      end
+    end
+  end
+
   def update_quality()
     @items.each do |item|
-      # update_quality_brie if item.name == "Aged Brie"
+      update_sell_in unless item.name == "Sulfuras, Hand of Ragnaros"
+      update_quality_brie if item.name == "Aged Brie"
       update_quality_sulfuras if item.name == "Sulfuras, Hand of Ragnaros"
+      update_quality_backstage if item.name == "Backstage passes to a TAFKAL80ETC concert"
       # if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
       #   if item.quality > 0
       #     if item.name != "Sulfuras, Hand of Ragnaros"
