@@ -1,14 +1,24 @@
 class Brie
-  def initialize(sell_in, quality)
-    @sell_in = sell_in
-    @quality = quality
+  def initialize(item)
+    @item = item
   end
+
+  def update
+    update_sell_in
+    update_quality
+  end
+
+  private
 
   def update_quality
-    @sell_in -= 1
-    @quality += 1 if @quality < 50
-    @quality += 1 if @sell_in < 0 && @quality < 50
+    item.quality += 1 if item.quality < 50
+    item.quality += 1 if item.sell_in < 0 && item.quality < 50
   end
 
-  attr_reader :sell_in, :quality
+  def update_sell_in
+    item.sell_in -= 1
+  end
+
+  attr_reader :item
+
 end
