@@ -1,14 +1,24 @@
 class Conjured
-  def initialize(sell_in, quality)
-    @sell_in = sell_in
-    @quality = quality
+  def initialize(item)
+    @item = item
   end
+
+  def update
+    update_sell_in
+    update_quality
+  end
+
+  private
 
   def update_quality
-    @sell_in -= 1
-    @quality -= 2 if @quality > 0
-    @quality -= 2 if @sell_in < 0 && @quality > 0
+    item.quality -= 2 if item.quality > 0
+    item.quality -= 2 if item.sell_in < 0 && item.quality > 0
   end
 
-  attr_reader :sell_in, :quality
+  def update_sell_in
+    item.sell_in -= 1
+  end
+
+  attr_reader :item
+
 end

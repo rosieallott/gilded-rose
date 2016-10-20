@@ -1,12 +1,23 @@
 class Sulfuras
-  def initialize(sell_in, quality)
-    @sell_in = sell_in
-    @quality = quality
+  def initialize(item)
+    @item = item
   end
 
+  def update
+    update_sell_in
+    update_quality
+  end
+
+  private
+
   def update_quality
+
+  end
+
+  def update_sell_in
     
   end
 
-  attr_reader :sell_in, :quality
+
+  attr_reader :item
 end
